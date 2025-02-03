@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGPA CALCULATOR</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        function generateFields() {
+            const numSubjects = document.getElementById('numSubjects').value;
+            const container = document.getElementById('subjectsContainer');
+            container.innerHTML = ''; // Clear previous fields
+
+            const table = document.createElement('table');
+            const headerRow = document.createElement('tr');
+            headerRow.innerHTML = `
+                <th>Subject</th>
+                <th>Grade</th>
+                <th>Credit</th>
+            `;
+            table.appendChild(headerRow);
+
+            for (let i = 0; i < numSubjects; i++) {
+                const row = document.createElement('tr');
+
+                const subjectCell = document.createElement('td');
+                subjectCell.innerText = `Subject ${i + 1}`;
+                row.appendChild(subjectCell);
+
+                const gradeCell = document.createElement('td');
+                const gradeSelect = document.createElement('select');
+                gradeSelect.name = `grade${i}`;
+                gradeSelect.innerHTML = `
+                    <option value="S">S</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                    <option value="F">F</option>
+                `;
+                gradeCell.appendChild(gradeSelect);
+                row.appendChild(gradeCell);
+
+                const creditCell = document.createElement('td');
+                const creditInput = document.createElement('input');
+                creditInput.type = 'number';
+                creditInput.name = `credit${i}`;
+                creditCell.appendChild(creditInput);
+                row.appendChild(creditCell);
+
+                table.appendChild(row);
+            }
+
+            container.appendChild(table);
+        }
+
+        function submitForm(event, formId, resultId, endpoint) {
+            event.preventDefault();
+            const form = document.getElementById(formId);
+            const formData = new FormData(form);
+
+            fetch(endpoint, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById(resultId).innerText = data.result;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function generateMarksFields() {
+            const numSubjects = document.getElementById('numSubjectsMarks').value;
+            const container = document.getElementById('marksContainer');
+            container.innerHTML = ''; // Clear previous fields
+
+            const table = document.createElement('table');
+            const headerRow = document.createElement('tr');
+            headerRow.innerHTML = `
+                <th>Subject</th>
+                <th>ISA1 (40)</th>
+                <th>ISA2 (40)</th>
+                <th>ASS (20)</th>
+                <th>ESA (100)</th>
+                <th>Credit</th>
+            `;
+            table.appendChild(headerRow);
+
+            for (let i = 0; i < numSubjects; i++) {
+                const row = document.createElement('tr');
+
+                const subjectCell = document.createElement('td');
+                subjectCell.innerText = `Subject ${i + 1}`;
+                row.appendChild(subjectCell);
+
+                const isa1Cell = document.createElement('td');
+                const isa1Input = document.createElement('input');
+                isa1Input.type = 'number';
+                isa1Input.name = `isa1${i}`;
+                isa1Cell.appendChild(isa1Input);
+                row.appendChild(isa1Cell);
+
+                const isa2Cell = document.createElement('td');
+                const isa2Input = document.createElement('input');
+                isa2Input.type = 'number';
+                isa2Input.name = `isa2${i}`;
+                isa2Cell.appendChild(isa2Input);
+                row.appendChild(isa2Cell);
+
+                const assCell = document.createElement('td');
+                const assInput = document.createElement('input');
+                assInput.type = 'number';
+                assInput.name = `ass${i}`;
+                assCell.appendChild(assInput);
+                row.appendChild(assCell);
+
+                const esaCell = document.createElement('td');
+                const esaInput = document.createElement('input');
+                esaInput.type = 'number';
+                esaInput.name = `esa${i}`;
+                esaCell.appendChild(esaInput);
+                row.appendChild(esaCell);
+
+                const creditCell = document.createElement('td');
+                const creditInput = document.createElement('input');
+                creditInput.type = 'number';
+                creditInput.name = `credit${i}`;
+                creditCell.appendChild(creditInput);
+                row.appendChild(creditCell);
+
+                table.appendChild(row);
+            }
+
+            container.appendChild(table);
+        }
+
+        function generateHowMuchFields() {
+            const numSubjects = document.getElementById('numSubjectsHowMuch').value;
+            const container = document.getElementById('howMuchContainer');
+            container.innerHTML = ''; // Clear previous fields
+
+            const table = document.createElement('table');
+            const headerRow = document.createElement('tr');
+            headerRow.innerHTML = `
+                <th>Subject</th>
+                <th>ISA1 (40)</th>
+                <th>ISA2 (40)</th>
+                <th>ASS (20)</th>
+                <th>Credit</th>
+            `;
+            table.appendChild(headerRow);
+
+            for (let i = 0; i < numSubjects; i++) {
+                const row = document.createElement('tr');
+
+                const subjectCell = document.createElement('td');
+                subjectCell.innerText = `Subject ${i + 1}`;
+                row.appendChild(subjectCell);
+
+                const isa1Cell = document.createElement('td');
+                const isa1Input = document.createElement('input');
+                isa1Input.type = 'number';
+                isa1Input.name = `isa1${i}`;
+                isa1Cell.appendChild(isa1Input);
+                row.appendChild(isa1Cell);
+
+                const isa2Cell = document.createElement('td');
+                const isa2Input = document.createElement('input');
+                isa2Input.type = 'number';
+                isa2Input.name = `isa2${i}`;
+                isa2Cell.appendChild(isa2Input);
+                row.appendChild(isa2Cell);
+
+                const assCell = document.createElement('td');
+                const assInput = document.createElement('input');
+                assInput.type = 'number';
+                assInput.name = `ass${i}`;
+                assCell.appendChild(assInput);
+                row.appendChild(assCell);
+
+                const creditCell = document.createElement('td');
+                const creditInput = document.createElement('input');
+                creditInput.type = 'number';
+                creditInput.name = `credit${i}`;
+                creditCell.appendChild(creditInput);
+                row.appendChild(creditCell);
+
+                table.appendChild(row);
+            }
+
+            container.appendChild(table);
+        }
+    </script>
+</head>
+<body>
+    <h1>Welcome to CGPA Calculator</h1>
+    <div class="container">
+        <form id="cgpaForm" onsubmit="submitForm(event, 'cgpaForm', 'result', '/')">
+            <span class="info-icon">i</span>
+            <div class="tooltip">Calculate SGPA based on grade and credits. type no of Subjects and hit Next Step</div>
+            <label for="numSubjects">Number of Subjects:</label><br>
+            <input type="number" id="numSubjects" name="numSubjects" onchange="generateFields()"><br><br>
+            <div id="subjectsContainer"></div>
+            <button type="submit">Next Step</button>
+            <div id="result">CALCULATED SGPA = __</div>
+        </form>
+
+        <form id="sgpaForm" onsubmit="submitForm(event, 'sgpaForm', 'sgpaResult', '/calculate_sgpa')">
+            <span class="info-icon">i</span>
+            <div class="tooltip">Calculate SGPA based on expected marks in isa,assignment,esa and credits. type no of Subjects and hit Next Step</div>
+            <label for="numSubjectsMarks">Number of Subjects:</label><br>
+            <input type="number" id="numSubjectsMarks" name="numSubjectsMarks" onchange="generateMarksFields()"><br><br>
+            <div id="marksContainer"></div>
+            <button type="submit">Next Step</button>
+            <div id="sgpaResult">CALCULATED SGPA = __</div>
+        </form>
+
+        <form id="howMuchForm" onsubmit="submitForm(event, 'howMuchForm', 'howMuchResult', '/how_much')">
+            <span class="info-icon">i</span>
+            <div class="tooltip">Calculate least marks needed to achieve a highest grade based on expected marks in isas and assignment for each subject. type no of Subjects and hit Next Step</div>
+            <label for="numSubjectsHowMuch">Number of Subjects:</label><br>
+            <input type="number" id="numSubjectsHowMuch" name="numSubjectsHowMuch" onchange="generateHowMuchFields()"><br><br>
+            <div id="howMuchContainer"></div>
+            <button type="submit">Next step</button>
+            <div id="howMuchResult">MARKS NEEDED = __</div>
+        </form>
+    </div>
+</body>
+</html>
