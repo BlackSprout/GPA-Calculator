@@ -58,5 +58,4 @@ def how_much_marks():
     result3 = how_much(marks)
     return jsonify(result=f"MARKS NEEDED = {result3}")
 
-if __name__ == '__main__':
-    app.run(debug=True)
+
